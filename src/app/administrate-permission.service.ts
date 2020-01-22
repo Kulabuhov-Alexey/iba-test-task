@@ -1,47 +1,50 @@
-export interface Group {
-  id: Number;
-  name:string;
-  permissions:Array<Number>;
-}
-export interface User {
-  id: Number;
-  name:string;
-  permissions:Array<Number>;
-  groupId:Number;
-}
+import {Injectable} from '@angular/core';
+import {User, Group} from './app.component';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class AdministratePermissionService {
-  PERMISSIONS = {1: 'View Dashboards', 2: 'Edit Dashboards', 3: 'Manage Datasources', 4: 'Manage Users'}
-  users = []
-  groups = []
+  PERMISSIONS = {1: 'View Dashboards', 2: 'Edit Dashboards', 3: 'Manage Datasources', 4: 'Manage Users'};
+  users: Array<User> = [];
+  groups: Group[];
   constructor() { }
 
-  addUser(user: User):void {
-    this.users.push(user)
+  checkUserForAdd(user: User): any {
+    return this.users.find(item => item.name === user.name);
   }
 
-  addGroup(group: Group):void {
-    this.groups.push(group)
+  addUser(user: User): void {
+    if (this.checkUserForAdd(user) === undefined) {
+      this.users.push(user);
+    }
+    console.log(this.users);
   }
 
-  getUser():any{
-    return this.users
+  addGroup(group: Group): void {
+    this.groups.push(group);
   }
 
-  getGroup():any{
-    return this.groups
+  getUser(): any {
+    return this.users;
   }
 
-  deleteUser(user: User):void {
-    this.users.splice(this.users.indexOf(user), 1)
+  getGroup(): any {
+    return this.groups;
   }
 
-  deleteGroup(group: Group):void {
-    this.groups.splice(this.groups.indexOf(group), 1)
+  deleteUser(name: string): void {
+    const userForDel = this.users.find(item => item.name === name);
+    this.users.splice(this.users.indexOf(userForDel), 1);
+    console.log(this.users);
   }
 
-  setPermissions(user: User, permissions: Array<number>):void {
-    this.users[this.users.indexOf(user)].permissions = permissions
+  deleteGroup(group: Group): void {
+    this.groups.splice(this.groups.indexOf(group), 1);
+  }
+
+  setPermissions(user: User, permissions: Array<number>): void {
+    this.users[this.users.indexOf(user)].permissions = permissions;
   }
 
 }

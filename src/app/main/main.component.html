@@ -1,8 +1,12 @@
+<div id = "header_action-bar">
+  <button id = "header_button_add" (click)="onAdd()">Add+</button>
+  <button id = "header_button_delete" (click)="onDel()">Delete</button>
+</div>
 <h2>User Profile</h2>
-<input type="text">
-<input type="text">
-<input type="password">
-<input type="password">
+<input type="text" placeholder="name" [(ngModel)]="name">
+<input type="text" placeholder="Email" [(ngModel)]="email">
+<input type="password" [(ngModel)]="password">
+<input type="password" [(ngModel)]="password">
 <h2>User Permissions</h2>
 <ul>
   <li>View Dashboards</li>
